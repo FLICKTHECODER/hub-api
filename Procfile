@@ -1,1 +1,1 @@
-Worker: python phapi.py
+web: gunicorn phapi:app --log -
