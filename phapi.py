@@ -31,3 +31,6 @@ def fetch_vidlink():
     click_to_dl_btn = driver.find_element(By.XPATH, "//*[@id='sddlbtn']").click()
     driver.implicitly_wait(6)
     return(f'{driver.current_url}')
+  
+if __name__ == "__main__":
+        app.run()
