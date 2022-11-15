@@ -1,1 +1,1 @@
-web: gunicorn wsgi:phapi
+web: gunicorn phapi:app
