@@ -30,7 +30,7 @@ def fetch_vidlink(key):
     driver.switch_to.window(file)
     driver.implicitly_wait(1)
     click_to_dl_btn = driver.find_element(By.XPATH, "//*[@id='sddlbtn']").click()
-    time.sleep(7)
+    driver.implicitly_wait(8)
     return(f'{driver.current_url}')
   
 if __name__ == "__main__":
