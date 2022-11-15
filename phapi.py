@@ -12,14 +12,10 @@ app = Flask(__name__)
 def bruh():
   return "Hello"
 
-@app.route('/ph/<vid_url>')
-def fetch_vidlink(vid_url):
-    if "pornhub.com" in vid_url:
-        vid_main_url = vid_url.replace("pornhub.com", "saveporn.net")
-        print(vid_main_url)
-
-    else:
-        return "Not a valid url :("
+@app.route('/ph/<key>')
+def fetch_vidlink(key):
+    vid_main_url = "https://www.saveporn.net/view_video.php?viewkey=" + key
+    print(vid_main_url)
 
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--no-sandbox")
