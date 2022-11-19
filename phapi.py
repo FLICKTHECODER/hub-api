@@ -25,8 +25,10 @@ def fetch_vidlink(key):
     driver.get(vid_main_url)
     driver.implicitly_wait(1)
     vid_480_btn = driver.find_element(By.XPATH, "//*[@id='dtable']/table/tbody/tr[2]/td[3]/a").click()
+    driver.implicitly_wait(1)
     file = driver.window_handles[1]
     driver.switch_to.window(file)
+    driver.implicitly_wait(1)
     return(f'{driver.current_url}')
     driver.close()
   
