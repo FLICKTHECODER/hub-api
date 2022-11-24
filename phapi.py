@@ -5,8 +5,11 @@ import os
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
-
 app = Flask(__name__)
+
+@app.route("/")
+def check():
+  return "I'm alive"
 
 @app.route("/bro")
 def bruh():
@@ -14,22 +17,22 @@ def bruh():
 
 @app.route('/ph/<key>')
 def fetch_vidlink(key):
-    vid_main_url = "https://www.saveporn.net/view_video.php?viewkey=" + key
-    print(vid_main_url)
-
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-gpu")
-    driver = webdriver.Chrome(options=chrome_options)
-    driver.get(vid_main_url)
-    driver.implicitly_wait(1)
-    vid_480_btn = driver.find_element(By.XPATH, "//*[@id='dtable']/table/tbody/tr[2]/td[3]/a").get_attribute('href')
-    driver.implicitly_wait(1)
-    print(vid_480_btn)
-    return(f'{vid_480_btn}')
-    driver.close()
+    if "ph" in key:
+      chrome_options = Options()  
+      chrome_options.add_argument('--no-sandbox')
+      chrome_options.add_argument('--disable-dev-shm-usage')
+      driver = webdriver.Chrome(options=chrome_options)
+      driver.get("https://9xbuddy.in/process?url=https://www.pornhub.com/view_video.php?viewkey=" + key)
+      driver.maximize_window()
+      driver.implicitly_wait(10)
+      driver.execute_script("window.scrollTo(0, 1300)")
+      dm = driver.find_elements(By.XPATH, f"//span[contains(text(), 'Download Now')]")[1].click()
+      file = driver.window_handles[0]
+      driver.switch_to.window(file)
+      return driver.current_url
+    else:
+      return "Not a valid hub video viewkey :("
   
 if __name__ == "__main__":
-        app.run()
+        app.run(host='0.0.0.0', port=random.randint(2000, 9000))
   
